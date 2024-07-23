@@ -33,7 +33,7 @@ jobs:
       - name: Install Hatch
         run: pip install hatch
       - name: Install git
-        run: sudo apk add --no-cache git
+        run: apk add --no-cache git
       - name: Code Analysis
         run: hatch fmt --check
       - name: Test
