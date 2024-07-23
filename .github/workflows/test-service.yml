@@ -15,7 +15,7 @@ jobs:
       contents: read
     container: python:3.12-alpine
     services:
-      postgres:
+      database:
         image: postgres:16-alpine
         env:
           POSTGRES_USER: test
