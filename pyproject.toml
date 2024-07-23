@@ -1,0 +1,56 @@
+[project]
+name = "events_service"
+description = "Simple events service"
+readme = "README.md"
+dynamic = ["version"]
+authors = [{ name = 'Sylvain Viollon', email = 'thefunny@gmail.com' }]
+requires-python = '>=3.12'
+dependencies = [
+    'asyncpg',
+    'alembic',
+    'fastapi',
+    'pydantic',
+    'sqlalchemy',
+    'whtft.app @ git+https://github.com/thefunny42/whtft.app@main',
+    'whtft.metrics @ git+https://github.com/thefunny42/whtft.metrics@main',
+    'whtft.security @ git+https://github.com/thefunny42/whtft.security@main',
+]
+
+[project.scripts]
+events-service = "events_service.main:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.black]
+line-length = 79
+
+[tool.coverage.report]
+fail_under = 95
+
+[tool.hatch.version]
+path = "src/events_service/main.py"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.envs.hatch-static-analysis]
+dependencies = ["black", "flake8", "isort"]
+
+[tool.hatch.envs.hatch-static-analysis.scripts]
+format-check = [
+    "black --check --diff {args:.}",
+    "isort --check-only --diff {args:.}",
+]
+format-fix = ["isort {args:.}", "black {args:.}"]
+lint-check = "flake8 {args:.}"
+lint-fix = "lint-check"
+
+[tool.hatch.envs.hatch-test]
+randomize = true
+extra-dependencies = [
+    "events_service",
+    "pytest-asyncio==0.23.7",
+    "respx==0.21.1",
+]

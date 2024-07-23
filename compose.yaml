@@ -1,0 +1,38 @@
+# Compose file used in the dev container
+name: events-service
+services:
+  events-service:
+    build:
+      context: .
+    image: ghcr.io/thefunny42/events-service:main
+    environment:
+      - AUTHORIZATION_ENDPOINT=http://opa:8181
+      - DEFAULT_DATABASE_URL=postgresql+asyncpg://test:password@database/test
+    ports:
+      - 8000:8000
+  opa:
+    image: openpolicyagent/opa:edge
+    command:
+    - "run"
+    - "--server"
+    - "--set=decision_logs.console=true"
+    - "/policies"
+    ports:
+      - 8181:8181
+    volumes:
+      - type: bind
+        source: charts/opa/policies
+        target: /policies
+  database:
+    image: postgres:16-alpine
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: test
+    volumes:
+      - database:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+volumes:
+  database:
