@@ -31,9 +31,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
-        run: apk add --no-cache git gcc linux-headers musl-dev shadow bash
+        run: apk add --no-cache git gcc linux-headers musl-dev shadow pipx
       - name: Install Hatch
-        uses: pypa/hatch@install
+        run:  pipx install hatch
+        env:
+          PIPX_DEFAULT_PYTHON: /usr/local/bin/python3
       - name: Code Analysis
         run: hatch fmt --check
       - name: Test
