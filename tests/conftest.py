@@ -13,7 +13,6 @@ import pytest_asyncio
 import respx
 import sqlalchemy
 import whtft.security
-import whtft.app.repository
 
 from events_service import api, main, models, settings
 from events_service.database import Database
