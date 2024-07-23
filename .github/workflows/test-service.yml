@@ -33,7 +33,9 @@ jobs:
       - name: Install dependencies
         run: apk add --no-cache git gcc linux-headers musl-dev shadow pipx
       - name: Install Hatch
-        run:  pipx install hatch
+        run: |
+          pipx install hatch
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
         env:
           PIPX_DEFAULT_PYTHON: /usr/local/bin/python3
       - name: Code Analysis
