@@ -14,10 +14,7 @@ RUN adduser --system --uid 1000 -G python python
 RUN chsh -s /bin/zsh python
 
 USER 1000:1000
-RUN PIPX_DEFAULT_PYTHON=/usr/local/bin/python3 pipx install \
-    alembic \
-    coverage \
-    hatch
+RUN PIPX_DEFAULT_PYTHON=/usr/local/bin/python3 pipx install coverage hatch
 
 EXPOSE 8000
 

@@ -31,7 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install Hatch
-        uses: pypa/hatch@install
+        run: pip install hatch
       - name: Code Analysis
         run: hatch fmt --check
       - name: Test
