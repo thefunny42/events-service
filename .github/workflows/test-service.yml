@@ -30,10 +30,10 @@ jobs:
           - 5432:5432
     steps:
       - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: apk add --no-cache git gcc linux-headers musl-dev shadow bash
       - name: Install Hatch
-        run: pip install hatch
-      - name: Install git
-        run: apk add --no-cache git
+        uses: pypa/hatch@install
       - name: Code Analysis
         run: hatch fmt --check
       - name: Test
